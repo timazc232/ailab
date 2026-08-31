@@ -1,0 +1,69 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Node / JavaScript
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.next/
+.nuxt/
+.svelte-kit/
+
+# Build and test outputs
+dist/
+build/
+out/
+coverage/
+*.log
+logs/
+tmp/
+temp/
+
+# Notebooks and editors
+.ipynb_checkpoints/
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Local databases, caches, and model artifacts
+*.sqlite
+*.sqlite3
+.cache/
+**/local-models/
+**/model-weights/
+*.gguf
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+
+# Private or reproducible data
+**/data/private/
+**/data/raw/
+
+# Local experiment run outputs (raw observation logs; distilled evidence is committed instead)
+observations.jsonl

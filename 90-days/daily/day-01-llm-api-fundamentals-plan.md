@@ -56,15 +56,15 @@ LLM Client 是隔离 provider 变化与上层逻辑的边界：后续 Agent Loop
 
 | # | 场景 | mock 行为 | 预期错误分类（实验时填写） | 重试判断（实验时填写） |
 |---|---|---|---|---|
-| 1 | 成功响应 | 200 + 合法 JSON | 待填 | 待填 |
-| 2 | 畸形 JSON | 200 + 非法 JSON | 待填 | 待填 |
-| 3 | 认证失败 | 401 + 错误说明体 | 待填 | 待填 |
-| 4 | 限流 | 429（可含 Retry-After 头） | 待填 | 待填 |
-| 5 | 服务错误 | 500 | 待填 | 待填 |
-| 6 | 超时 | 延迟超过 client timeout | 待填 | 待填 |
-| 7 | 结果未正常完成 | 200 + 合法 JSON + `finish_reason="length"` | 待填 | 待填 |
+| 1 | 成功响应 | 200 + 合法 JSON | success | no |
+| 2 | 畸形 JSON | 200 + 非法 JSON | http-api-protocol（payload 契约失败） | no：确定性契约违反 |
+| 3 | 认证失败 | 401 + 错误说明体 | http-api-protocol（HTTP 层拒绝） | no：永久性认证失败 |
+| 4 | 限流 | 429（可含 Retry-After 头） | http-api-protocol（HTTP 层拒绝） | yes：遵守 Retry-After |
+| 5 | 服务错误 | 500 | http-api-protocol（HTTP 层拒绝） | maybe：服务端瞬时故障 |
+| 6 | 超时 | 延迟超过 client timeout | transport（读阶段超时） | uncertain：先确认第一请求结果/幂等键 |
+| 7 | 结果未正常完成 | 200 + 合法 JSON + `finish_reason="length"` | model-result-condition | no：重试无助于结果完整性 |
 
-场景 7 与场景 1 在 HTTP 层完全同构（都是 200 + 合法 JSON），唯一差异在 result-level 信号；它用于验证 **HTTP success != model task success**。
+场景 7 与场景 1 在 HTTP 层完全同构（都是 200 + 合法 JSON），唯一差异在 result-level 信号；它用于验证 **HTTP success != model task success**。分类与重试判断两列已由 2026-08-31 的 21 次实测填充；原始观察 `observations.jsonl` 仅本地保留，不入库。
 
 ### 5.4 观察字段（每个场景一条记录）
 

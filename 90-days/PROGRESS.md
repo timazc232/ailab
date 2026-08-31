@@ -12,14 +12,14 @@
 ## Current Day
 
 - **Current Day**：Day 1（2026-08-31）
-- **Day 1**：In Progress — 概念步、假设/契约、mock server、client、runner 已完成（21/21 实测通过）；Evaluation 归档待用户解释结果。
-- 当前没有任何学习 Module 被标记为完成（M1.1 未完成）。
+- **Day 1**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档。
+- **已完成 Module**：M1.1（Day 1 第一个最小闭环，2026-08-31）。
 
 ## Current Module
 
-- **已完成**：Roadmap / Progress 初始化；Day 1 开工参数确认（2026-08-30）；Day 1 计划文档（含第 7 场景修正）；Day 1 概念步通过；mock server 实现并自检通过（7/7）。
-- **下一 Module**：M1.1 LLM API Fundamentals / LLM Client。
-- **状态**：Day 1 于 2026-08-31 开始。假设、fixture contract 与分类规则见计划文档 §10；client 与 runner 已实现并实测通过，待用户解释观察结果后归档 Evaluation cases。
+- **已完成**：工作区初始化与治理基线；Day 1 开工参数确认；Day 1 全流程（概念 / 假设 / mock / client / runner / 实测验证 / 用户解释确认 / 首批 7 个 Evaluation Cases 归档）。
+- **下一 Module**：M1.2 Messages / Context（Week 1 剩余部分）。
+- **状态**：M1.1 Completed（2026-08-31）；M1.2 未开始。
 
 ## Completed Milestones
 
@@ -31,6 +31,13 @@
 - [x] `PROGRESS.md` 已初始化，用于区分计划与实际进展。
 
 > Day 0 的“环境搭建”仅指 AI Lab 工作区与治理文档基线，不代表语言运行环境、项目依赖、模型凭据或外部 API 已配置。
+
+### Day 1 Completed（2026-08-31）
+
+- [x] M1.1 LLM API Fundamentals / LLM Client 第一个最小闭环。
+- 证据：`playground/agent-lab/m1-1-llm-client/`（mock / client / runner）；self-test 7/7；runner 21/21 命中预测；首批 7 个 Evaluation Cases：`eval_cases.jsonl`。
+- 用户解释确认：三类失败边界、timeout 重试不确定性（幂等性雏形）、HTTP success != model task success（各含一次纠偏后通过）。
+- 已知限制：结论限于本地 mock 与单一路径；未知 `finish_reason` 与 schema_violation 边界分支未实测。
 
 ## Active Task
 
@@ -86,8 +93,8 @@
 
 1. 已完成（2026-08-30）：确认 Day 1 开工参数；更新 `daily/day-01-llm-api-fundamentals-plan.md`（含第 7 场景：200 + 合法 JSON + `finish_reason="length"`）。
 2. 已完成（2026-08-30）：Day 1 概念步确认通过；假设、fixture contract 与分类决策规则见 `daily/day-01-llm-api-fundamentals-plan.md` 第 10 节。
-3. 进行中（2026-08-31）：mock server 已完成并自检通过；下一步实现最小同步 client（`http.client`）与 runner，运行 7 场景 × 3 次并记录观察。
-4. 只有验证完成且用户能够解释关键机制后，才更新 Day 1 或 M1.1 为 Completed。
+3. 已完成（2026-08-31）：Day 1 闭环完成；M1.1 标记 Completed；首批 7 个 Evaluation Cases 已归档并推送仓库。
+4. 下一模块 M1.2 Messages / Context：开始前先解释 role、顺序、上下文预算与显式状态（Learning Mode），经用户确认理解后再实现。
 
 ## Progress Update Rules
 

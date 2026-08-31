@@ -12,7 +12,7 @@
   并解释 HTTP success != model task success。
 - **契约与计划**：[90-days/daily/day-01-llm-api-fundamentals-plan.md](../../90-days/daily/day-01-llm-api-fundamentals-plan.md) §10。
 - **前置条件**：Python 3.12（仅标准库）；无外部依赖；无真实网络访问（仅 loopback）。
-- **状态**：mock server、client、runner 已实现；runner 实测 21/21 通过（7 场景 × 3 次全部一致且命中预测）；Evaluation 归档待用户解释观察结果。
+- **状态**：M1.1 Day 1 闭环完成（2026-08-31）：self-test 7/7、runner 21/21、用户解释确认、首批 7 个 Evaluation Cases 归档（`eval_cases.jsonl`）。
 
 #### 运行（mock server）
 
@@ -38,4 +38,4 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 #### 下一步
 
-用户解释观察结果（学习闭环「解释」步）→ 归档首批 7 个 Evaluation Cases → M1.1 Definition of Done 检查。
+下一模块 M1.2 Messages / Context（见 ROADMAP Week 1）：先解释机制，再做最小实验。

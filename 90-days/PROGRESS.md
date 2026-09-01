@@ -13,14 +13,14 @@
 
 - **Current Day**：Day 2（2026-09-01）
 - **Day 1**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档。
-- **Day 2**：In Progress — 实现与实测完成（e1–e5 全部 5/5）；Evaluation 已归档；M1.2 Completed 待用户解释观察结果。
-- **已完成 Module**：M1.1（Day 1 第一个最小闭环，2026-08-31）。
+- **Day 2**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（12 累计 cases）。
+- **已完成 Module**：M1.1（2026-08-31）、M1.2（2026-09-01）。
 
 ## Current Module
 
 - **已完成**：工作区初始化与治理基线；Day 1 开工参数确认；Day 1 全流程（概念 / 假设 / mock / client / runner / 实测验证 / 用户解释确认 / 首批 7 个 Evaluation Cases 归档）。
 - **下一 Module**：M1.2 Messages / Context（Week 1 剩余部分）。
-- **状态**：M1.1 Completed（2026-08-31）；M1.2 实现与实测完成（12 条累计 Evaluation Cases），待用户解释后关闭。
+- **状态**：M1.1、M1.2 Completed（2026-08-31 / 2026-09-01），Week 1 核心 Module 已完成；下一步 Week 1 复盘，然后 M1.3 Streaming。
 
 ## Completed Milestones
 
@@ -39,6 +39,13 @@
 - 证据：`playground/agent-lab/m1-1-llm-client/`（mock / client / runner）；self-test 7/7；runner 21/21 命中预测；首批 7 个 Evaluation Cases：`eval_cases.jsonl`。
 - 用户解释确认：三类失败边界、timeout 重试不确定性（幂等性雏形）、HTTP success != model task success（各含一次纠偏后通过）。
 - 已知限制：结论限于本地 mock 与单一路径；未知 `finish_reason` 与 schema_violation 边界分支未实测。
+
+### Day 2 Completed（2026-09-01）
+
+- [x] M1.2 Messages / Context 第一个最小闭环。
+- 证据：`playground/agent-lab/m1-2-messages/`；runner e1–e5 5/5；Day 1 回归 21/21 不变；累计 Evaluation 12 cases（`playground/agent-lab/eval_cases.jsonl`）。
+- 用户解释确认：context 是唯一事实来源（连续性由重发历史造出）；drop-oldest 对重要性盲目；构造期 fail-fast 与运行时防御分层。
+- 已知限制：字符预算是 proxy 非 token；截断 Policy 是确定性 baseline，语义去噪留给 M4.2/M4.4。
 
 ## Active Task
 
@@ -79,6 +86,8 @@
 
 ### 已确认的规划原则
 
+- 新术语首次出现时向用户提供通俗解释（用户偏好，自 Day 2 起生效）。
+
 - Core Mechanism 必须按“概念 → 最小实验 → 实现 → 运行 → 观察 → 解释 → Evaluation → 改进”推进。
 - Evaluation 与 Safety 是跨阶段能力：早期积累 cases，后期形成正式 harness 和基线。
 - 路线假设已有后端、Linux、Docker、数据库、Git 与 API 基础，不重复教授基础课程。
@@ -95,7 +104,8 @@
 1. 已完成（2026-08-30）：确认 Day 1 开工参数；更新 `daily/day-01-llm-api-fundamentals-plan.md`（含第 7 场景：200 + 合法 JSON + `finish_reason="length"`）。
 2. 已完成（2026-08-30）：Day 1 概念步确认通过；假设、fixture contract 与分类决策规则见 `daily/day-01-llm-api-fundamentals-plan.md` 第 10 节。
 3. 已完成（2026-08-31）：Day 1 闭环完成；M1.1 标记 Completed；首批 7 个 Evaluation Cases 已归档并推送仓库。
-4. 进行中（2026-09-01）：M1.2 实现、运行、观察完成（5/5），Evaluation 已归档；待用户解释 e2/e5 观察后关闭 M1.2。
+4. 已完成（2026-09-01）：用户复述确认（context 唯一事实来源、drop-oldest 盲区），M1.2 标记 Completed。
+5. 下一步：Week 1 复盘（`reviews/week-01.md`，校准难度与节奏）→ Week 2 M1.3 Streaming / M1.4 Structured Output。
 
 ## Progress Update Rules
 

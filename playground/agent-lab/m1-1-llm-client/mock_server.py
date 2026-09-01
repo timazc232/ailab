@@ -21,11 +21,20 @@ DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8931
 PATH = "/v1/chat/completions"
 SCENARIO_HEADER = "X-Mock-Scenario"
-SCENARIOS = ("s1", "s2", "s3", "s4", "s5", "s6", "s7")
+SCENARIOS = ("s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8")  # s8（echo）属于 M1.2
 # 必须大于 client 读超时（2s），保证 s6 稳定触发读超时
 S6_DELAY_SECONDS = 5
 
-EXPECTED_STATUS = {"s1": 200, "s2": 200, "s3": 401, "s4": 429, "s5": 500, "s6": 200, "s7": 200}
+EXPECTED_STATUS = {
+    "s1": 200,
+    "s2": 200,
+    "s3": 401,
+    "s4": 429,
+    "s5": 500,
+    "s6": 200,
+    "s7": 200,
+    "s8": 200,
+}
 
 
 def _completion(content: str, finish_reason: str) -> bytes:
@@ -61,7 +70,8 @@ class MockHandler(BaseHTTPRequestHandler):
             return
 
         scenario = self.headers.get(SCENARIO_HEADER, "")
-        self._drain_request_body()
+        length = int(self.headers.get("Content-Length") or 0)
+        raw_body = self.rfile.read(length) if length > 0 else b""
 
         if scenario == "s1":
             self._send_json(
@@ -89,6 +99,14 @@ class MockHandler(BaseHTTPRequestHandler):
                     "The theory of general relativity was developed by Albert Einste", "length"
                 ),
             )
+        elif scenario == "s8":
+            # echo（M1.2）：把收到的 messages 原样回显，验证「模型看到的 = 发送的」
+            try:
+                received = json.loads(raw_body).get("messages", [])
+            except json.JSONDecodeError:
+                received = [{"role": "user", "content": "<unparseable request body>"}]
+            echo = json.dumps({"received_messages": received}, ensure_ascii=False)
+            self._send_json(200, _completion(echo, "stop"))
         else:
             self._send_json(
                 400,
@@ -96,11 +114,6 @@ class MockHandler(BaseHTTPRequestHandler):
                     400, f"missing or unknown {SCENARIO_HEADER}; expected one of {SCENARIOS}"
                 ),
             )
-
-    def _drain_request_body(self) -> None:
-        length = int(self.headers.get("Content-Length") or 0)
-        if length > 0:
-            self.rfile.read(length)
 
     def _send_json(
         self, status: int, body: bytes, extra_headers: dict[str, str] | None = None

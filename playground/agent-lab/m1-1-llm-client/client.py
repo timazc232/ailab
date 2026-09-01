@@ -66,6 +66,7 @@ def call_once(
     scenario: str,
     timeout_s: float = TIMEOUT_S,
     run: int | None = None,
+    request_body: bytes | None = None,
 ) -> dict:
     """向本地 mock 发送一次请求，返回一条观察记录（§5.4 字段）。"""
     record: dict = {
@@ -88,13 +89,15 @@ def call_once(
         "detail": "",
     }
 
-    request_body = json.dumps(
-        {
-            "model": "mock-model-day1",
-            "messages": [{"role": "user", "content": "Say hi"}],
-            "max_tokens": 16,
-        }
-    ).encode("utf-8")
+    if request_body is None:
+        # Day 1 默认请求体；M1.2 起 caller 可传入自己构造的 payload
+        request_body = json.dumps(
+            {
+                "model": "mock-model-day1",
+                "messages": [{"role": "user", "content": "Say hi"}],
+                "max_tokens": 16,
+            }
+        ).encode("utf-8")
 
     conn = http.client.HTTPConnection(host, port, timeout=timeout_s)
     phase = "connect"
@@ -160,6 +163,7 @@ def call_once(
 
     record["body_parse"] = "ok"
     record["finish_reason"] = payload["choices"][0]["finish_reason"]
+    record["response_content"] = payload["choices"][0]["message"]["content"]
 
     # R4 / R5：模型结果层
     if record["finish_reason"] == "stop":

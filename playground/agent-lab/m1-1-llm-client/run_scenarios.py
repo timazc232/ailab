@@ -15,7 +15,10 @@ import threading
 from http.server import ThreadingHTTPServer
 
 from client import TIMEOUT_S, call_once
-from mock_server import SCENARIOS, MockHandler
+from mock_server import MockHandler
+
+# Day 1 范围固定为 s1–s7；s8（echo）属于 M1.2，不纳入本 runner
+DAY1_SCENARIOS = ("s1", "s2", "s3", "s4", "s5", "s6", "s7")
 
 # 实验前写下的预测（plan §10.2），运行后逐一对照
 PREDICTED = {
@@ -50,7 +53,7 @@ def main() -> int:
                 f"{'status':<8}{'body_parse':<18}{'finish':<9}{'ms':>6}  match"
             )
             print(header)
-            for scenario in SCENARIOS:
+            for scenario in DAY1_SCENARIOS:
                 outcomes = []
                 for run in range(1, RUNS_PER_SCENARIO + 1):
                     record = call_once(args.host, args.port, scenario, run=run)
@@ -79,7 +82,7 @@ def main() -> int:
         server.shutdown()
         server.server_close()
 
-    print(f"\n{'PASS' if all_ok else 'FAIL'}: {len(SCENARIOS) * RUNS_PER_SCENARIO} "
+    print(f"\n{'PASS' if all_ok else 'FAIL'}: {len(DAY1_SCENARIOS) * RUNS_PER_SCENARIO} "
           f"observations written to {args.output}")
     return 0 if all_ok else 1
 

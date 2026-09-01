@@ -11,15 +11,16 @@
 
 ## Current Day
 
-- **Current Day**：Day 1（2026-08-31）
+- **Current Day**：Day 2（2026-09-01）
 - **Day 1**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档。
+- **Day 2**：In Progress — 实现与实测完成（e1–e5 全部 5/5）；Evaluation 已归档；M1.2 Completed 待用户解释观察结果。
 - **已完成 Module**：M1.1（Day 1 第一个最小闭环，2026-08-31）。
 
 ## Current Module
 
 - **已完成**：工作区初始化与治理基线；Day 1 开工参数确认；Day 1 全流程（概念 / 假设 / mock / client / runner / 实测验证 / 用户解释确认 / 首批 7 个 Evaluation Cases 归档）。
 - **下一 Module**：M1.2 Messages / Context（Week 1 剩余部分）。
-- **状态**：M1.1 Completed（2026-08-31）；M1.2 未开始。
+- **状态**：M1.1 Completed（2026-08-31）；M1.2 实现与实测完成（12 条累计 Evaluation Cases），待用户解释后关闭。
 
 ## Completed Milestones
 
@@ -94,7 +95,7 @@
 1. 已完成（2026-08-30）：确认 Day 1 开工参数；更新 `daily/day-01-llm-api-fundamentals-plan.md`（含第 7 场景：200 + 合法 JSON + `finish_reason="length"`）。
 2. 已完成（2026-08-30）：Day 1 概念步确认通过；假设、fixture contract 与分类决策规则见 `daily/day-01-llm-api-fundamentals-plan.md` 第 10 节。
 3. 已完成（2026-08-31）：Day 1 闭环完成；M1.1 标记 Completed；首批 7 个 Evaluation Cases 已归档并推送仓库。
-4. 下一模块 M1.2 Messages / Context：开始前先解释 role、顺序、上下文预算与显式状态（Learning Mode），经用户确认理解后再实现。
+4. 进行中（2026-09-01）：M1.2 实现、运行、观察完成（5/5），Evaluation 已归档；待用户解释 e2/e5 观察后关闭 M1.2。
 
 ## Progress Update Rules
 

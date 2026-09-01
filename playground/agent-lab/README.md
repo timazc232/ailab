@@ -12,7 +12,8 @@
   并解释 HTTP success != model task success。
 - **契约与计划**：[90-days/daily/day-01-llm-api-fundamentals-plan.md](../../90-days/daily/day-01-llm-api-fundamentals-plan.md) §10。
 - **前置条件**：Python 3.12（仅标准库）；无外部依赖；无真实网络访问（仅 loopback）。
-- **状态**：M1.1 Day 1 闭环完成（2026-08-31）：self-test 7/7、runner 21/21、用户解释确认、首批 7 个 Evaluation Cases 归档（`eval_cases.jsonl`）。
+- **状态**：M1.1 Day 1 闭环完成（2026-08-31）：self-test 7/7、runner 21/21、用户解释确认、首批 7 个 Evaluation Cases 归档（共享日志 [`eval_cases.jsonl`](../eval_cases.jsonl)）。
+- 2026-09-01：client 新增向后兼容参数 `request_body` 与记录字段 `response_content`（M1.2 复用）；mock 新增 `s8` echo 场景；Day 1 回归 21/21 通过。
 
 #### 运行（mock server）
 
@@ -38,4 +39,19 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 #### 下一步
 
-下一模块 M1.2 Messages / Context（见 ROADMAP Week 1）：先解释机制，再做最小实验。
+已由 M1.2 接续（见下）。
+
+### m1-2-messages — Day 2 / M1.2 Messages / Context
+
+- **目标**：显式构造 + 字节确定序列化 + 预算截断 Policy；用 `s8` echo 实验证「模型看到的 = 你发送的」，并区分 context 与 memory。
+- **契约与计划**：[90-days/daily/day-02-messages-context-plan.md](../../90-days/daily/day-02-messages-context-plan.md)。
+- **运行**：
+
+  ```bash
+  cd m1-2-messages
+  python3 run_context_scenarios.py   # 进程内启动 mock（端口 8932），跑 e1–e5
+  ```
+
+- **验证**：输出 `PASS`（5/5）；原始观察 `observations.jsonl` 仅本地保留；Evaluation 追加至共享 [`eval_cases.jsonl`](../eval_cases.jsonl)（m1.2-e1..e5）。
+- **已知限制**：字符预算是 proxy 非 token；截断 Policy 是确定性 baseline（语义去噪留给 M4.2/M4.4）。
+- **状态**：实现与实测完成，待用户解释观察结果后关闭。

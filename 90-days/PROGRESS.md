@@ -11,16 +11,17 @@
 
 ## Current Day
 
-- **Current Day**：Day 2（2026-09-01）
-- **Day 1**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档。
-- **Day 2**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（12 累计 cases）。
+- **Current Day**：Day 3（2026-09-02）
+- **Day 1**：Completed（2026-08-31）。
+- **Day 2**：Completed（2026-09-01）。
+- **Day 3**：In Progress — 实现与实测完成（f1–f5 全部 5/5）；Evaluation 已归档；M1.3 Completed 待用户解释观察结果。
 - **已完成 Module**：M1.1（2026-08-31）、M1.2（2026-09-01）。
 
 ## Current Module
 
 - **已完成**：工作区初始化与治理基线；Day 1 开工参数确认；Day 1 全流程（概念 / 假设 / mock / client / runner / 实测验证 / 用户解释确认 / 首批 7 个 Evaluation Cases 归档）。
-- **下一 Module**：M1.2 Messages / Context（Week 1 剩余部分）。
-- **状态**：M1.1、M1.2 Completed（2026-08-31 / 2026-09-01），Week 1 核心 Module 已完成；下一步 Week 1 复盘，然后 M1.3 Streaming。
+- **下一 Module**：M1.3 Streaming（Week 2）。
+- **状态**：M1.1、M1.2 Completed；M1.3 实现与实测完成（累计 17 条 Evaluation Cases），待用户解释后关闭。Week 1 复盘顺延至 Week 2 末。
 
 ## Completed Milestones
 
@@ -105,7 +106,8 @@
 2. 已完成（2026-08-30）：Day 1 概念步确认通过；假设、fixture contract 与分类决策规则见 `daily/day-01-llm-api-fundamentals-plan.md` 第 10 节。
 3. 已完成（2026-08-31）：Day 1 闭环完成；M1.1 标记 Completed；首批 7 个 Evaluation Cases 已归档并推送仓库。
 4. 已完成（2026-09-01）：用户复述确认（context 唯一事实来源、drop-oldest 盲区），M1.2 标记 Completed。
-5. 下一步：Week 1 复盘（`reviews/week-01.md`，校准难度与节奏）→ Week 2 M1.3 Streaming / M1.4 Structured Output。
+5. 顺延：Week 1 复盘改至 Week 2 末与 Week 2 复盘合并进行。
+6. 进行中（2026-09-02）：M1.3 实现、运行、观察完成（5/5），Evaluation 已归档；待用户解释 f2/f4 后关闭 M1.3。
 
 ## Progress Update Rules
 

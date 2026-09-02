@@ -1,7 +1,7 @@
 """Day 1（M1.1）本地 mock LLM API server。
 
-只提供 POST /v1/chat/completions，通过请求头 X-Mock-Scenario: s1..s7
-选择 fixture 行为（契约见 90-days/daily/day-01-llm-api-fundamentals-plan.md §10.2）。
+只提供 POST /v1/chat/completions，通过请求头 X-Mock-Scenario: s1..s11
+选择 fixture 行为。s9–s11 为 M1.3 流式 SSE 场景。
 默认只绑定 loopback；仅使用标准库。
 
 用法：
@@ -21,7 +21,8 @@ DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8931
 PATH = "/v1/chat/completions"
 SCENARIO_HEADER = "X-Mock-Scenario"
-SCENARIOS = ("s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8")  # s8（echo）属于 M1.2
+SCENARIOS = ("s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11")
+# s8 echo = M1.2；s9–s11 流式 = M1.3
 # 必须大于 client 读超时（2s），保证 s6 稳定触发读超时
 S6_DELAY_SECONDS = 5
 
@@ -34,7 +35,13 @@ EXPECTED_STATUS = {
     "s6": 200,
     "s7": 200,
     "s8": 200,
+    "s9": 200,
+    "s10": 200,
+    "s11": 200,
 }
+
+# 必须与 m1-3-streaming/sse.py 的 REFERENCE_TEXT 一致
+STREAM_DELTAS = ("你好", "，世界", "。", "Streaming does not change the answer.")
 
 
 def _completion(content: str, finish_reason: str) -> bytes:
@@ -59,6 +66,45 @@ def _error_body(status: int, message: str) -> bytes:
     return json.dumps(
         {"error": {"message": message, "type": f"mock_error_{status}", "code": status}}
     ).encode("utf-8")
+
+
+def _sse_delta(content: str | None = None, finish_reason: str | None = None) -> bytes:
+    choice: dict = {"index": 0, "delta": {}}
+    if content is not None:
+        choice["delta"]["content"] = content
+    if finish_reason is not None:
+        choice["finish_reason"] = finish_reason
+    payload = {
+        "id": "chatcmpl-mock-day3",
+        "object": "chat.completion.chunk",
+        "choices": [choice],
+    }
+    return f"data: {json.dumps(payload, ensure_ascii=False)}\n\n".encode("utf-8")
+
+
+def _sse_done() -> bytes:
+    return b"data: [DONE]\n\n"
+
+
+def _sse_happy_body() -> bytes:
+    parts = [_sse_delta(chunk) for chunk in STREAM_DELTAS]
+    parts.append(_sse_delta(content=None, finish_reason="stop"))
+    parts.append(_sse_done())
+    return b"".join(parts)
+
+
+def _sse_malformed_body() -> bytes:
+    parts = [_sse_delta(STREAM_DELTAS[0]), _sse_delta(STREAM_DELTAS[1])]
+    parts.append(b"data: {oops\n\n")
+    parts.extend(_sse_delta(chunk) for chunk in STREAM_DELTAS[2:])
+    parts.append(_sse_delta(content=None, finish_reason="stop"))
+    parts.append(_sse_done())
+    return b"".join(parts)
+
+
+def _sse_disconnect_body() -> bytes:
+    # 只写前两个 delta，不写 finish / [DONE]；随后关闭连接
+    return b"".join(_sse_delta(chunk) for chunk in STREAM_DELTAS[:2])
 
 
 class MockHandler(BaseHTTPRequestHandler):
@@ -107,6 +153,16 @@ class MockHandler(BaseHTTPRequestHandler):
                 received = [{"role": "user", "content": "<unparseable request body>"}]
             echo = json.dumps({"received_messages": received}, ensure_ascii=False)
             self._send_json(200, _completion(echo, "stop"))
+        elif scenario in ("s9", "s10", "s11"):
+            write_raw = self.headers.get("X-Mock-Write-Size", "")
+            write_size = int(write_raw) if write_raw.isdigit() and int(write_raw) > 0 else None
+            if scenario == "s9":
+                body = _sse_happy_body()
+            elif scenario == "s10":
+                body = _sse_malformed_body()
+            else:
+                body = _sse_disconnect_body()
+            self._send_sse(body, write_size=write_size)
         else:
             self._send_json(
                 400,
@@ -137,6 +193,25 @@ class MockHandler(BaseHTTPRequestHandler):
             self.wfile.write(body)
         except (BrokenPipeError, ConnectionResetError):
             # s6 场景下 client 读超时先行断开；服务端迟到的写失败是预期现象
+            pass
+
+    def _send_sse(self, body: bytes, write_size: int | None = None) -> None:
+        """流式 SSE：不发 Content-Length，Connection: close；可按 write_size 切字节。"""
+        self.close_connection = True  # 流结束即关连接，client 才能靠 EOF 判断读完
+        try:
+            self.send_response(200)
+            self.send_header("Content-Type", "text/event-stream")
+            self.send_header("Cache-Control", "no-cache")
+            self.send_header("Connection", "close")
+            self.end_headers()
+            if write_size is None:
+                self.wfile.write(body)
+            else:
+                for i in range(0, len(body), write_size):
+                    self.wfile.write(body[i : i + write_size])
+                    self.wfile.flush()
+            self.wfile.flush()
+        except (BrokenPipeError, ConnectionResetError):
             pass
 
 

@@ -26,14 +26,13 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 #### 验证
 
-- `--self-test` 应输出 `PASS: 7/7 fixtures match the contract`：
-  s1/s2/s6/s7 → 200，s3 → 401，s4 → 429，s5 → 500；s6 延迟约 5s。
+- `--self-test` 应输出 `PASS: 11/11 fixtures match the contract`（含 s8 echo、s9–s11 流式）。
 - `run_scenarios.py` 应输出 `PASS`：21 条观察 outcome 一致且全部命中 §10.2 预测（退出码 0）。
-- 场景由请求头 `X-Mock-Scenario: s1..s7` 选择；无此头或未知值返回 400。
+- 场景由请求头 `X-Mock-Scenario: s1..s11` 选择；无此头或未知值返回 400。Day 1 runner 仍固定跑 s1–s7。
 
 #### 已知限制
 
-- mock 只覆盖 Day 1 的 7 个固定场景；无 TLS、无 chunked 编码、无流式。
+- Day 1 范围仍是 s1–s7；s8–s11 为后续模块扩展。无 TLS。
 - 不校验 Authorization 头（Day 1 client 使用占位假 key，真实认证不属于本模块）。
 - s6 会占用工作线程 5s；仅适合单人本地实验。
 
@@ -54,4 +53,19 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 - **验证**：输出 `PASS`（5/5）；原始观察 `observations.jsonl` 仅本地保留；Evaluation 追加至共享 [`eval_cases.jsonl`](../eval_cases.jsonl)（m1.2-e1..e5）。
 - **已知限制**：字符预算是 proxy 非 token；截断 Policy 是确定性 baseline（语义去噪留给 M4.2/M4.4）。
-- **状态**：实现与实测完成，待用户解释观察结果后关闭。
+- **状态**：M1.2 闭环完成（2026-09-01）：runner 5/5、用户解释确认。
+
+### m1-3-streaming — Day 3 / M1.3 Streaming
+
+- **目标**：增量 SSE parser 在任意分块（含跨 chunk UTF-8）下重组结果与非流式一致；断流/取消绝不静默完整。
+- **契约与计划**：[90-days/daily/day-03-streaming-plan.md](../../90-days/daily/day-03-streaming-plan.md)。
+- **运行**：
+
+  ```bash
+  cd m1-3-streaming
+  python3 run_stream_scenarios.py   # 进程内启动 mock（端口 8933），跑 f1–f5
+  ```
+
+- **验证**：输出 `PASS`（5/5）；原始观察 `observations.jsonl` 仅本地保留；Evaluation 追加至共享 [`eval_cases.jsonl`](../eval_cases.jsonl)（m1.3-f1..f5）。
+- **已知限制**：无主动 backpressure 控制；无 tool-call 流式事件；mock 用 Connection: close 而非 chunked transfer。
+- **状态**：实现与实测完成（5/5），待用户解释观察结果后关闭。

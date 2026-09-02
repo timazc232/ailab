@@ -68,4 +68,4 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 - **验证**：输出 `PASS`（5/5）；原始观察 `observations.jsonl` 仅本地保留；Evaluation 追加至共享 [`eval_cases.jsonl`](../eval_cases.jsonl)（m1.3-f1..f5）。
 - **已知限制**：无主动 backpressure 控制；无 tool-call 流式事件；mock 用 Connection: close 而非 chunked transfer。
-- **状态**：实现与实测完成（5/5），待用户解释观察结果后关闭。
+- **状态**：M1.3 闭环完成（2026-09-02）：runner 5/5、用户解释确认。

@@ -15,14 +15,14 @@
 - **Day 1**：Completed（2026-08-31）。
 - **Day 2**：Completed（2026-09-01）。
 - **Day 3**：Completed（2026-09-02）。
-- **Day 4**：In Progress — 实现与实测完成（g1–g5 全部 5/5）；Evaluation 已归档；M1.4 Completed 待用户解释观察结果。
-- **已完成 Module**：M1.1、M1.2、M1.3。
+- **Day 4**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（22 累计 cases）。
+- **已完成 Module**：M1.1、M1.2、M1.3、M1.4。
 
 ## Current Module
 
 - **已完成**：工作区初始化与治理基线；Day 1 开工参数确认；Day 1 全流程（概念 / 假设 / mock / client / runner / 实测验证 / 用户解释确认 / 首批 7 个 Evaluation Cases 归档）。
-- **下一 Module**：M1.4 Structured Output（Week 2）。
-- **状态**：M1.1–M1.3 Completed；M1.4 实现与实测完成（累计 22 条 Evaluation Cases），待用户解释后关闭。Week 1 复盘顺延至 Week 2 末。
+- **下一 Module**：M1.5 Tool Calling（Week 3）。
+- **状态**：M1.1–M1.4 Completed（Week 2 核心 Module 完成）。Week 1/2 复盘顺延至 Week 2 末或下次会话。
 
 ## Completed Milestones
 
@@ -55,6 +55,13 @@
 - 证据：`playground/agent-lab/m1-3-streaming/`；runner f1–f5 5/5；Day 1 回归 21/21；self-test 11/11；累计 Evaluation 17 cases。
 - 用户解释确认：增量 UTF-8 解码器拼回跨 chunk 字符；EOF 是传输层信号，完整性须 finish_reason 且 [DONE]。
 - 已知限制：无主动 backpressure 控制；无 tool-call 流式事件。
+
+### Day 4 Completed（2026-09-03）
+
+- [x] M1.4 Structured Output 第一个最小闭环。
+- 证据：`playground/agent-lab/m1-4-structured-output/`；runner g1–g5 5/5；Day 1 回归 21/21；self-test 17/17；累计 Evaluation 22 cases。
+- 用户解释确认：retry 输出仍须走同一套 schema；额外字段直接拒绝是为了让契约违规可见，而不是默默放行。
+- 已知限制：schema 子集仅 object/required/type/enum/additionalProperties=false；无 semantic validation。
 
 ## Active Task
 
@@ -116,7 +123,8 @@
 4. 已完成（2026-09-01）：用户复述确认（context 唯一事实来源、drop-oldest 盲区），M1.2 标记 Completed。
 5. 顺延：Week 1 复盘改至 Week 2 末与 Week 2 复盘合并进行。
 6. 已完成（2026-09-02）：用户复述确认（增量 UTF-8 解码器扛跨 chunk 字符；EOF ≠ 完整，须 finish_reason 且 [DONE]），M1.3 标记 Completed。
-7. 进行中（2026-09-03）：M1.4 实现、运行、观察完成（5/5），Evaluation 已归档；待用户解释 g4/g5 后关闭 M1.4。
+7. 已完成（2026-09-03）：用户复述确认（retry 仍走同一 schema；extra field 拒绝以保持违规可见），M1.4 标记 Completed。
+8. 下一步：M1.5 Tool Calling（模型提出动作 ≠ 已执行；tool call 视为 untrusted input）。
 
 ## Progress Update Rules
 

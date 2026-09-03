@@ -83,4 +83,4 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 - **验证**：输出 `PASS`（5/5）；Evaluation 追加至共享 [`eval_cases.jsonl`](../eval_cases.jsonl)（m1.4-g1..g5）。
 - **已知限制**：schema 子集仅 object/required/type/enum/additionalProperties=false；无 semantic validation。
-- **状态**：实现与实测完成（5/5），待用户解释观察结果后关闭。
+- **状态**：M1.4 闭环完成（2026-09-03）：runner 5/5、用户解释确认。

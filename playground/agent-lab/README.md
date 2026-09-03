@@ -26,9 +26,9 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 #### 验证
 
-- `--self-test` 应输出 `PASS: 11/11 fixtures match the contract`（含 s8 echo、s9–s11 流式）。
+- `--self-test` 应输出 `PASS: 17/17 fixtures match the contract`（含 s8 echo、s9–s11 流式、s12–s17 结构化输出）。
 - `run_scenarios.py` 应输出 `PASS`：21 条观察 outcome 一致且全部命中 §10.2 预测（退出码 0）。
-- 场景由请求头 `X-Mock-Scenario: s1..s11` 选择；无此头或未知值返回 400。Day 1 runner 仍固定跑 s1–s7。
+- 场景由请求头 `X-Mock-Scenario: s1..s17` 选择；无此头或未知值返回 400。Day 1 runner 仍固定跑 s1–s7。
 
 #### 已知限制
 
@@ -69,3 +69,18 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 - **验证**：输出 `PASS`（5/5）；原始观察 `observations.jsonl` 仅本地保留；Evaluation 追加至共享 [`eval_cases.jsonl`](../eval_cases.jsonl)（m1.3-f1..f5）。
 - **已知限制**：无主动 backpressure 控制；无 tool-call 流式事件；mock 用 Connection: close 而非 chunked transfer。
 - **状态**：M1.3 闭环完成（2026-09-02）：runner 5/5、用户解释确认。
+
+### m1-4-structured-output — Day 4 / M1.4 Structured Output
+
+- **目标**：最小 schema 校验；非法输出不得进入下游；缺字段/错类型最多 1 次受控重试。
+- **契约与计划**：[90-days/daily/day-04-structured-output-plan.md](../../90-days/daily/day-04-structured-output-plan.md)。
+- **运行**：
+
+  ```bash
+  cd m1-4-structured-output
+  python3 run_schema_scenarios.py   # 进程内启动 mock（端口 8934），跑 g1–g5
+  ```
+
+- **验证**：输出 `PASS`（5/5）；Evaluation 追加至共享 [`eval_cases.jsonl`](../eval_cases.jsonl)（m1.4-g1..g5）。
+- **已知限制**：schema 子集仅 object/required/type/enum/additionalProperties=false；无 semantic validation。
+- **状态**：实现与实测完成（5/5），待用户解释观察结果后关闭。

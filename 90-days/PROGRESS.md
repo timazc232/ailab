@@ -11,17 +11,18 @@
 
 ## Current Day
 
-- **Current Day**：Day 3（2026-09-02）
+- **Current Day**：Day 4（2026-09-03）
 - **Day 1**：Completed（2026-08-31）。
 - **Day 2**：Completed（2026-09-01）。
-- **Day 3**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（17 累计 cases）。
-- **已完成 Module**：M1.1（2026-08-31）、M1.2（2026-09-01）、M1.3（2026-09-02）。
+- **Day 3**：Completed（2026-09-02）。
+- **Day 4**：In Progress — 实现与实测完成（g1–g5 全部 5/5）；Evaluation 已归档；M1.4 Completed 待用户解释观察结果。
+- **已完成 Module**：M1.1、M1.2、M1.3。
 
 ## Current Module
 
 - **已完成**：工作区初始化与治理基线；Day 1 开工参数确认；Day 1 全流程（概念 / 假设 / mock / client / runner / 实测验证 / 用户解释确认 / 首批 7 个 Evaluation Cases 归档）。
 - **下一 Module**：M1.4 Structured Output（Week 2）。
-- **状态**：M1.1、M1.2、M1.3 Completed；下一步 M1.4。Week 1 复盘顺延至 Week 2 末。
+- **状态**：M1.1–M1.3 Completed；M1.4 实现与实测完成（累计 22 条 Evaluation Cases），待用户解释后关闭。Week 1 复盘顺延至 Week 2 末。
 
 ## Completed Milestones
 
@@ -115,7 +116,7 @@
 4. 已完成（2026-09-01）：用户复述确认（context 唯一事实来源、drop-oldest 盲区），M1.2 标记 Completed。
 5. 顺延：Week 1 复盘改至 Week 2 末与 Week 2 复盘合并进行。
 6. 已完成（2026-09-02）：用户复述确认（增量 UTF-8 解码器扛跨 chunk 字符；EOF ≠ 完整，须 finish_reason 且 [DONE]），M1.3 标记 Completed。
-7. 下一步：M1.4 Structured Output（schema 契约、校验、拒绝与一次受控重试）。
+7. 进行中（2026-09-03）：M1.4 实现、运行、观察完成（5/5），Evaluation 已归档；待用户解释 g4/g5 后关闭 M1.4。
 
 ## Progress Update Rules
 

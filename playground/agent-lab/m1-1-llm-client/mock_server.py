@@ -21,8 +21,11 @@ DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8931
 PATH = "/v1/chat/completions"
 SCENARIO_HEADER = "X-Mock-Scenario"
-SCENARIOS = ("s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11")
-# s8 echo = M1.2；s9–s11 流式 = M1.3
+SCENARIOS = (
+    "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8",
+    "s9", "s10", "s11", "s12", "s13", "s14", "s15", "s16", "s17",
+)
+# s8 echo = M1.2；s9–s11 流式 = M1.3；s12–s17 结构化输出 = M1.4
 # 必须大于 client 读超时（2s），保证 s6 稳定触发读超时
 S6_DELAY_SECONDS = 5
 
@@ -38,6 +41,12 @@ EXPECTED_STATUS = {
     "s9": 200,
     "s10": 200,
     "s11": 200,
+    "s12": 200,
+    "s13": 200,
+    "s14": 200,
+    "s15": 200,
+    "s16": 200,
+    "s17": 200,
 }
 
 # 必须与 m1-3-streaming/sse.py 的 REFERENCE_TEXT 一致
@@ -163,6 +172,8 @@ class MockHandler(BaseHTTPRequestHandler):
             else:
                 body = _sse_disconnect_body()
             self._send_sse(body, write_size=write_size)
+        elif scenario in ("s12", "s13", "s14", "s15", "s16", "s17"):
+            self._send_structured(scenario)
         else:
             self._send_json(
                 400,
@@ -213,6 +224,19 @@ class MockHandler(BaseHTTPRequestHandler):
             self.wfile.flush()
         except (BrokenPipeError, ConnectionResetError):
             pass
+
+    def _send_structured(self, scenario: str) -> None:
+        """M1.4：把待校验 JSON 放在 chat completion 的 content 字符串里。"""
+        payloads = {
+            "s12": '{"status":"degraded","severity":3,"summary":"disk 91 percent on A"}',
+            # 非法 JSON：content 本身无法 json.loads
+            "s13": "{oops",
+            "s14": '{"status":"degraded","summary":"disk 91 percent on A"}',
+            "s15": '{"status":"degraded","severity":"high","summary":"disk 91 percent on A"}',
+            "s16": '{"status":"degraded","severity":3,"summary":"disk 91 percent on A","comment":"extra"}',
+            "s17": '{"status":"degraded","severity":3,"summary":"disk 91 percent on A"}',
+        }
+        self._send_json(200, _completion(payloads[scenario], "stop"))
 
 
 def _self_test(host: str, port: int) -> int:

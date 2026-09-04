@@ -98,4 +98,4 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 - **验证**：输出 `PASS`（5/5）；t2/t3/t4 `calls_executed=0`；Evaluation 追加至共享 [`eval_cases.jsonl`](../eval_cases.jsonl)（m1.5-t1..t5）。
 - **已知限制**：只支持单 tool call；allowlist 硬编码；工具为纯函数；真实执行异常留到 M1.6。
-- **状态**：实现与实测完成（5/5），待用户解释观察结果后关闭。
+- **状态**：M1.5 闭环完成（2026-09-04）：runner 5/5、拒绝路径零执行、用户解释确认。

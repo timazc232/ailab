@@ -2,25 +2,25 @@
 
 > 本文件只记录实际发生的学习、验证证据、未解决问题和下一步；计划内容以 [`ROADMAP.md`](ROADMAP.md) 为准。
 
-- **最后更新**：2026-08-31
+- **最后更新**：2026-09-04
 
 ## Current Phase
 
 - **Day 0 — 准备阶段（Completed）**
-- Phase 1 — Day 1 进行中（2026-08-31 开始）。
+- **Phase 1 — Day 5 Completed**；下一模块 M1.6 Tool Registry / Dispatch。
 
 ## Current Day
 
 - **Current Day**：Day 5（2026-09-04）
 - **Day 1–4**：Completed。
-- **Day 5**：In Progress — 实现与实测完成（t1–t5 全部 5/5）；Evaluation 已归档；M1.5 Completed 待用户解释观察结果。
-- **已完成 Module**：M1.1、M1.2、M1.3、M1.4。
+- **Day 5**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（27 累计 cases）。
+- **已完成 Module**：M1.1、M1.2、M1.3、M1.4、M1.5。
 
 ## Current Module
 
-- **已完成**：工作区初始化与治理基线；Day 1 开工参数确认；Day 1 全流程（概念 / 假设 / mock / client / runner / 实测验证 / 用户解释确认 / 首批 7 个 Evaluation Cases 归档）。
-- **下一 Module**：M1.5 Tool Calling（Week 3）。
-- **状态**：M1.1–M1.4 Completed；M1.5 实现与实测完成（累计 27 条 Evaluation Cases），待用户解释后关闭。
+- **已完成**：M1.1–M1.5；累计 27 条 Evaluation Cases；Day 1–5 均有运行证据与用户解释确认。
+- **下一 Module**：M1.6 Tool Registry / Dispatch（Week 3）。
+- **状态**：M1.5 Completed（2026-09-04）；M1.6 未开始。
 
 ## Completed Milestones
 
@@ -61,10 +61,17 @@
 - 用户解释确认：retry 输出仍须走同一套 schema；额外字段直接拒绝是为了让契约违规可见，而不是默默放行。
 - 已知限制：schema 子集仅 object/required/type/enum/additionalProperties=false；无 semantic validation。
 
+### Day 5 Completed（2026-09-04）
+
+- [x] M1.5 Tool Calling 第一个最小闭环。
+- 证据：`playground/agent-lab/m1-5-tool-calling/`；runner t1–t5 5/5；拒绝路径 calls_executed=0；累计 Evaluation 27 cases。
+- 用户解释确认：模型提出 ≠ 执行；selection / invocation validation / execution 三段边界；tool result 必须显式回填并用 tool_call_id 关联。
+- 已知限制：只支持单 tool call；allowlist 硬编码；工具均为无副作用纯函数；真实执行异常留给 M1.6。
+
 ## Active Task
 
-- 本次任务：按完整需求初始化并校准 `90-days/ROADMAP.md` 与 `90-days/PROGRESS.md`。
-- 当前执行状态：文档工作完成；未开始 Day 1、未编写实现代码、未安装依赖、未调用外部 API。
+- 本次任务：Day 5 / M1.5 Tool Calling 最小闭环。
+- 当前执行状态：Completed；仅本地 scripted fixtures 与纯函数；未调用真实模型/API；代码与证据已推送 GitHub。
 
 ## Validation Evidence
 
@@ -78,6 +85,7 @@
 - 验证结果：`ROADMAP/PROGRESS content validation: PASS`（2026-08-30）。
 - 2026-08-31：`python3 mock_server.py --self-test` → `PASS: 7/7 fixtures match the contract`；防火墙实测确认 loopback 可用（ufw `-i lo -j ACCEPT`，未修改防火墙配置）。
 - 2026-08-31：`python3 run_scenarios.py` → `PASS`，21/21 观察 outcome 一致且命中 §10.2 预测（`observations.jsonl`）。
+- 2026-09-04：`python3 run_tool_scenarios.py` → `PASS: 5 cases`；t2/t3/t4 `calls_executed=0`；累计 Evaluation 27 cases。
 
 ## Unresolved Questions
 
@@ -109,9 +117,9 @@
 - OpenOps 的故障注入必须位于隔离 Docker Test Lab；宿主机重要服务不是实验对象。
 - Memory、Context 与 RAG 必须分别验证，不能用接入 Vector Database 代替机制理解。
 
-### 尚无实验结论
+### 已有实验结论
 
-- Day 1 尚未开始，因此当前没有关于模型 API、实现方案或评测结果的实验证据。
+- M1.1–M1.5 已完成最小实验闭环；机制结论、失败边界与已知限制分别记录在 Day 1–5 daily log 与 Completed Milestones。
 
 ## Next Step
 
@@ -122,7 +130,8 @@
 5. 顺延：Week 1 复盘改至 Week 2 末与 Week 2 复盘合并进行。
 6. 已完成（2026-09-02）：用户复述确认（增量 UTF-8 解码器扛跨 chunk 字符；EOF ≠ 完整，须 finish_reason 且 [DONE]），M1.3 标记 Completed。
 7. 已完成（2026-09-03）：用户复述确认（retry 仍走同一 schema；extra field 拒绝以保持违规可见），M1.4 标记 Completed。
-8. 进行中（2026-09-04）：M1.5 实现、运行、观察完成（5/5），Evaluation 已归档；待用户解释 t2/t3/t4/t5 后关闭。
+8. 已完成（2026-09-04）：用户复述确认（unknown vs denied、invocation 零执行、tool result 回填与 tool_call_id 映射），M1.5 标记 Completed。
+9. 下一步：M1.6 Tool Registry / Dispatch（注册、schema 暴露、权限 metadata、命名冲突与执行异常）。
 
 ## Progress Update Rules
 

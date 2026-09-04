@@ -11,18 +11,16 @@
 
 ## Current Day
 
-- **Current Day**：Day 4（2026-09-03）
-- **Day 1**：Completed（2026-08-31）。
-- **Day 2**：Completed（2026-09-01）。
-- **Day 3**：Completed（2026-09-02）。
-- **Day 4**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（22 累计 cases）。
+- **Current Day**：Day 5（2026-09-04）
+- **Day 1–4**：Completed。
+- **Day 5**：In Progress — 实现与实测完成（t1–t5 全部 5/5）；Evaluation 已归档；M1.5 Completed 待用户解释观察结果。
 - **已完成 Module**：M1.1、M1.2、M1.3、M1.4。
 
 ## Current Module
 
 - **已完成**：工作区初始化与治理基线；Day 1 开工参数确认；Day 1 全流程（概念 / 假设 / mock / client / runner / 实测验证 / 用户解释确认 / 首批 7 个 Evaluation Cases 归档）。
 - **下一 Module**：M1.5 Tool Calling（Week 3）。
-- **状态**：M1.1–M1.4 Completed（Week 2 核心 Module 完成）。Week 1/2 复盘顺延至 Week 2 末或下次会话。
+- **状态**：M1.1–M1.4 Completed；M1.5 实现与实测完成（累计 27 条 Evaluation Cases），待用户解释后关闭。
 
 ## Completed Milestones
 
@@ -124,7 +122,7 @@
 5. 顺延：Week 1 复盘改至 Week 2 末与 Week 2 复盘合并进行。
 6. 已完成（2026-09-02）：用户复述确认（增量 UTF-8 解码器扛跨 chunk 字符；EOF ≠ 完整，须 finish_reason 且 [DONE]），M1.3 标记 Completed。
 7. 已完成（2026-09-03）：用户复述确认（retry 仍走同一 schema；extra field 拒绝以保持违规可见），M1.4 标记 Completed。
-8. 下一步：M1.5 Tool Calling（模型提出动作 ≠ 已执行；tool call 视为 untrusted input）。
+8. 进行中（2026-09-04）：M1.5 实现、运行、观察完成（5/5），Evaluation 已归档；待用户解释 t2/t3/t4/t5 后关闭。
 
 ## Progress Update Rules
 

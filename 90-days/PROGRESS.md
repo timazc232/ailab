@@ -2,25 +2,26 @@
 
 > 本文件只记录实际发生的学习、验证证据、未解决问题和下一步；计划内容以 [`ROADMAP.md`](ROADMAP.md) 为准。
 
-- **最后更新**：2026-09-04
+- **最后更新**：2026-09-07
 
 ## Current Phase
 
 - **Day 0 — 准备阶段（Completed）**
-- **Phase 1 — Day 5 Completed**；下一模块 M1.6 Tool Registry / Dispatch。
+- **Phase 1 — Day 6 In Progress**；当前模块 M1.6 Tool Registry / Dispatch。
 
 ## Current Day
 
-- **Current Day**：Day 5（2026-09-04）
-- **Day 1–4**：Completed。
-- **Day 5**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（27 累计 cases）。
+- **Current Day**：Day 6（2026-09-07）
+- **Day 1–5**：Completed。
+- **Day 6**：In Progress — 实现与实测完成（r1–r7 全部 7/7）；Evaluation 已归档；M1.6 Completed 待用户解释观察结果。
 - **已完成 Module**：M1.1、M1.2、M1.3、M1.4、M1.5。
+- **节奏记录**：2026-09-05～06 无学习记录，不补写。
 
 ## Current Module
 
 - **已完成**：M1.1–M1.5；累计 27 条 Evaluation Cases；Day 1–5 均有运行证据与用户解释确认。
 - **下一 Module**：M1.6 Tool Registry / Dispatch（Week 3）。
-- **状态**：M1.5 Completed（2026-09-04）；M1.6 未开始。
+- **状态**：M1.1–M1.5 Completed；M1.6 实现与实测完成（累计 34 条 Evaluation Cases），待用户解释后关闭。
 
 ## Completed Milestones
 
@@ -131,7 +132,7 @@
 6. 已完成（2026-09-02）：用户复述确认（增量 UTF-8 解码器扛跨 chunk 字符；EOF ≠ 完整，须 finish_reason 且 [DONE]），M1.3 标记 Completed。
 7. 已完成（2026-09-03）：用户复述确认（retry 仍走同一 schema；extra field 拒绝以保持违规可见），M1.4 标记 Completed。
 8. 已完成（2026-09-04）：用户复述确认（unknown vs denied、invocation 零执行、tool result 回填与 tool_call_id 映射），M1.5 标记 Completed。
-9. 下一步：M1.6 Tool Registry / Dispatch（注册、schema 暴露、权限 metadata、命名冲突与执行异常）。
+9. 进行中（2026-09-07）：M1.6 实现、运行、观察完成（7/7），Evaluation 已归档；待用户解释 r2/r5/r6/r7 后关闭。
 
 ## Progress Update Rules
 

@@ -99,3 +99,18 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 - **验证**：输出 `PASS`（5/5）；t2/t3/t4 `calls_executed=0`；Evaluation 追加至共享 [`eval_cases.jsonl`](../eval_cases.jsonl)（m1.5-t1..t5）。
 - **已知限制**：只支持单 tool call；allowlist 硬编码；工具为纯函数；真实执行异常留到 M1.6。
 - **状态**：M1.5 闭环完成（2026-09-04）：runner 5/5、拒绝路径零执行、用户解释确认。
+
+### m1-6-tool-registry — Day 6 / M1.6 Tool Registry / Dispatch
+
+- **目标**：以 Registry 集中管理 ToolSpec；统一 lookup → authorization → validation → execution；inventory 按权限过滤。
+- **契约与计划**：[90-days/daily/day-06-tool-registry-dispatch-plan.md](../../90-days/daily/day-06-tool-registry-dispatch-plan.md)。
+- **运行**：
+
+  ```bash
+  cd m1-6-tool-registry
+  python3 run_registry_scenarios.py   # 跑 r1–r7，仅本地纯函数
+  ```
+
+- **验证**：输出 `PASS`（7/7）；r3/r4/r5 零执行；r6 实际进入函数后异常；r2 原工具未被重复注册覆盖；Evaluation 追加 m1.6-r1..r7。
+- **已知限制**：无 timeout / async / 动态卸载 / 并发注册；schema 仅 number/string + required + 无额外字段。
+- **状态**：实现与实测完成（7/7），待用户解释观察结果后关闭。

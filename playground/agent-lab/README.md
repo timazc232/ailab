@@ -113,4 +113,4 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 - **验证**：输出 `PASS`（7/7）；r3/r4/r5 零执行；r6 实际进入函数后异常；r2 原工具未被重复注册覆盖；Evaluation 追加 m1.6-r1..r7。
 - **已知限制**：无 timeout / async / 动态卸载 / 并发注册；schema 仅 number/string + required + 无额外字段。
-- **状态**：实现与实测完成（7/7），待用户解释观察结果后关闭。
+- **状态**：M1.6 闭环完成（2026-09-07）：runner 7/7、用户解释确认。

@@ -7,21 +7,21 @@
 ## Current Phase
 
 - **Day 0 — 准备阶段（Completed）**
-- **Phase 1 — Day 6 In Progress**；当前模块 M1.6 Tool Registry / Dispatch。
+- **Phase 1 — Day 6 Completed**；下一模块 M1.7 Agent Loop + State / Lifecycle。
 
 ## Current Day
 
 - **Current Day**：Day 6（2026-09-07）
 - **Day 1–5**：Completed。
-- **Day 6**：In Progress — 实现与实测完成（r1–r7 全部 7/7）；Evaluation 已归档；M1.6 Completed 待用户解释观察结果。
-- **已完成 Module**：M1.1、M1.2、M1.3、M1.4、M1.5。
+- **Day 6**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（34 累计 cases）。
+- **已完成 Module**：M1.1、M1.2、M1.3、M1.4、M1.5、M1.6。
 - **节奏记录**：2026-09-05～06 无学习记录，不补写。
 
 ## Current Module
 
-- **已完成**：M1.1–M1.5；累计 27 条 Evaluation Cases；Day 1–5 均有运行证据与用户解释确认。
-- **下一 Module**：M1.6 Tool Registry / Dispatch（Week 3）。
-- **状态**：M1.1–M1.5 Completed；M1.6 实现与实测完成（累计 34 条 Evaluation Cases），待用户解释后关闭。
+- **已完成**：M1.1–M1.6；累计 34 条 Evaluation Cases；Day 1–6 均有运行证据与用户解释确认。
+- **下一 Module**：M1.7 Agent Loop + State / Lifecycle（Week 4）。
+- **状态**：M1.6 Completed（2026-09-07）；M1.7 未开始。
 
 ## Completed Milestones
 
@@ -69,10 +69,17 @@
 - 用户解释确认：模型提出 ≠ 执行；selection / invocation validation / execution 三段边界；tool result 必须显式回填并用 tool_call_id 关联。
 - 已知限制：只支持单 tool call；allowlist 硬编码；工具均为无副作用纯函数；真实执行异常留给 M1.6。
 
+### Day 6 Completed（2026-09-07）
+
+- [x] M1.6 Tool Registry / Dispatch 第一个最小闭环。
+- 证据：`playground/agent-lab/m1-6-tool-registry/`；runner r1–r7 7/7；拒绝路径零执行；执行异常计数 1；累计 Evaluation 34 cases。
+- 用户解释确认：duplicate name 不可自动替换；authorization 先于 validation；execution failure 必须已进入函数；inventory 不是授权凭证。
+- 已知限制：无 timeout / async / 动态卸载 / 并发注册；当前无显式 replace/unregister 生命周期；schema 仅 number/string + required + 无额外字段。
+
 ## Active Task
 
-- 本次任务：Day 5 / M1.5 Tool Calling 最小闭环。
-- 当前执行状态：Completed；仅本地 scripted fixtures 与纯函数；未调用真实模型/API；代码与证据已推送 GitHub。
+- 本次任务：Day 6 / M1.6 Tool Registry / Dispatch 最小闭环。
+- 当前执行状态：Completed；仅本地 fixtures 与纯函数；未调用真实模型/API；代码与证据已推送 GitHub。
 
 ## Validation Evidence
 
@@ -87,6 +94,7 @@
 - 2026-08-31：`python3 mock_server.py --self-test` → `PASS: 7/7 fixtures match the contract`；防火墙实测确认 loopback 可用（ufw `-i lo -j ACCEPT`，未修改防火墙配置）。
 - 2026-08-31：`python3 run_scenarios.py` → `PASS`，21/21 观察 outcome 一致且命中 §10.2 预测（`observations.jsonl`）。
 - 2026-09-04：`python3 run_tool_scenarios.py` → `PASS: 5 cases`；t2/t3/t4 `calls_executed=0`；累计 Evaluation 27 cases。
+- 2026-09-07：`python3 run_registry_scenarios.py` → `PASS: 7 cases`；r3/r4/r5 零执行；r6 执行 1 次后异常；累计 Evaluation 34 cases。
 
 ## Unresolved Questions
 
@@ -120,7 +128,7 @@
 
 ### 已有实验结论
 
-- M1.1–M1.5 已完成最小实验闭环；机制结论、失败边界与已知限制分别记录在 Day 1–5 daily log 与 Completed Milestones。
+- M1.1–M1.6 已完成最小实验闭环；机制结论、失败边界与已知限制分别记录在 Day 1–6 daily log 与 Completed Milestones。
 
 ## Next Step
 
@@ -132,7 +140,8 @@
 6. 已完成（2026-09-02）：用户复述确认（增量 UTF-8 解码器扛跨 chunk 字符；EOF ≠ 完整，须 finish_reason 且 [DONE]），M1.3 标记 Completed。
 7. 已完成（2026-09-03）：用户复述确认（retry 仍走同一 schema；extra field 拒绝以保持违规可见），M1.4 标记 Completed。
 8. 已完成（2026-09-04）：用户复述确认（unknown vs denied、invocation 零执行、tool result 回填与 tool_call_id 映射），M1.5 标记 Completed。
-9. 进行中（2026-09-07）：M1.6 实现、运行、观察完成（7/7），Evaluation 已归档；待用户解释 r2/r5/r6/r7 后关闭。
+9. 已完成（2026-09-07）：用户复述确认（重复注册、授权顺序、零执行 vs 已执行异常、inventory 与强制授权边界），M1.6 标记 Completed。
+10. 下一步：M1.7 Agent Loop + State / Lifecycle（显式状态、终止原因、中断/恢复与资源清理）。
 
 ## Progress Update Rules
 

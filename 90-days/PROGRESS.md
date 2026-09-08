@@ -7,21 +7,21 @@
 ## Current Phase
 
 - **Day 0 — 准备阶段（Completed）**
-- **Phase 1 — Day 8 In Progress**；当前模块 M1.8 Planning + Reflection + Human-in-the-loop。
+- **Phase 1 — Day 8 Completed**；下一模块 M1.9 Retry / Timeout / Error Recovery + Basic Tracing。
 
 ## Current Day
 
 - **Current Day**：Day 8（2026-09-08）
 - **Day 1–7**：Completed。
-- **Day 8**：In Progress — 实现与实测完成（p1–p5b 全部 6/6，回归不变）；Evaluation 已归档；M1.8 Completed 待用户解释观察结果。
-- **已完成 Module**：M1.1、M1.2、M1.3、M1.4、M1.5、M1.6、M1.7。
+- **Day 8**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（47 累计 cases）。
+- **已完成 Module**：M1.1–M1.8。
 - **节奏记录**：2026-09-05～06 无学习记录；Day 6/7 均发生于 2026-09-07，分文件记录。
 
 ## Current Module
 
-- **已完成**：M1.1–M1.7；累计 41 条 Evaluation Cases；Day 1–7 均有运行证据与用户解释确认。
-- **下一 Module**：M1.8 Planning + Reflection + Human-in-the-loop（Week 4）。
-- **状态**：M1.7 Completed（2026-09-07）；M1.8 实现与实测完成（累计 47 条 Evaluation Cases），待用户解释后关闭。
+- **已完成**：M1.1–M1.8；累计 47 条 Evaluation Cases；Day 1–8 均有运行证据与用户解释确认。
+- **下一 Module**：M1.9 Retry / Timeout / Error Recovery + Basic Tracing（Week 4）。
+- **状态**：M1.8 Completed（2026-09-08）；M1.9 未开始。
 
 ## Completed Milestones
 
@@ -83,9 +83,16 @@
 - 用户解释确认：max_steps 是预算未完成而非故障；副作用不可自动回滚；checkpoint 四要素作用；恢复零重放证明。
 - 已知限制：仅在完整 step 后 checkpoint；不覆盖 in-flight tool、外部副作用 exactly-once、持久化存储、并发恢复与 schema migration。
 
+### Day 8 Completed（2026-09-08）
+
+- [x] M1.8 Planning + Reflection + Human-in-the-loop 第一个最小闭环。
+- 证据：`playground/agent-lab/m1-8-control-strategies/`；runner p1–p5b 6/6；M1.6/M1.7 回归不变；累计 Evaluation 47 cases。
+- 用户解释确认：策略成本对比；Reflection 上限防失控；审批依据 ToolSpec metadata 在 dispatch 前拦截；Reflection 管生成层质量、approval 管执行层不可逆风险。
+- 已知限制：checker 为确定性 stub；真实质量收益需真实模型评测；multi-agent 明确非目标；approval 超时未实现。
+
 ## Active Task
 
-- 本次任务：Day 7 / M1.7 Agent Loop + State / Lifecycle 最小闭环。
+- 本次任务：Day 8 / M1.8 Planning + Reflection + Human-in-the-loop 最小闭环。
 - 当前执行状态：Completed；仅 scripted model 与本地 fixtures；未调用真实模型/API；代码与证据已推送 GitHub。
 
 ## Validation Evidence
@@ -103,6 +110,7 @@
 - 2026-09-04：`python3 run_tool_scenarios.py` → `PASS: 5 cases`；t2/t3/t4 `calls_executed=0`；累计 Evaluation 27 cases。
 - 2026-09-07：`python3 run_registry_scenarios.py` → `PASS: 7 cases`；r3/r4/r5 零执行；r6 执行 1 次后异常；累计 Evaluation 34 cases。
 - 2026-09-07：`python3 run_loop_scenarios.py` → `PASS: 7 cases`；l6 checkpoint round-trip；l7 恢复零重放；累计 Evaluation 41 cases。
+- 2026-09-08：`python3 run_strategy_scenarios.py` → `PASS: 6 cases`（含回归 m1-7 7/7、m1-6 7/7）；Reflection 封顶；审批前副作用零执行；累计 Evaluation 47 cases。
 
 ## Unresolved Questions
 
@@ -136,7 +144,7 @@
 
 ### 已有实验结论
 
-- M1.1–M1.6 已完成最小实验闭环；机制结论、失败边界与已知限制分别记录在 Day 1–6 daily log 与 Completed Milestones。
+- M1.1–M1.8 已完成最小实验闭环；机制结论、失败边界与已知限制分别记录在 Day 1–8 daily log 与 Completed Milestones。
 
 ## Next Step
 
@@ -151,7 +159,8 @@
 9. 已完成（2026-09-07）：用户复述确认（重复注册、授权顺序、零执行 vs 已执行异常、inventory 与强制授权边界），M1.6 标记 Completed。
 10. 已完成（2026-09-07）：用户复述确认（max_steps 语义、副作用不可自动回滚、checkpoint 四要素、恢复零重放），M1.7 标记 Completed。
 11. 下一步：M1.8 Planning + Reflection + Human-in-the-loop（reactive vs plan-first、受限 Reflection、副作用前人工审批）。
-12. 进行中（2026-09-08）：M1.8 实现、运行、观察完成（6/6 + 回归通过），Evaluation 已归档；待用户解释 p3/p4/p5 后关闭。
+12. 已完成（2026-09-08）：用户复述确认（策略成本、Reflection 上限、审批拦截时机与 metadata 依据、双层拦截互补），M1.8 标记 Completed。
+13. 下一步：M1.9 Retry / Timeout / Error Recovery + Basic Tracing（transient vs permanent、deadline、backoff、幂等性与 trace schema；Day 30 Checkpoint 前最后一个 Module）。
 
 ## Progress Update Rules
 

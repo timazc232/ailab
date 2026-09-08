@@ -19,9 +19,9 @@
 
 ## Current Module
 
-- **已完成**：M1.1–M1.6；累计 34 条 Evaluation Cases；Day 1–6 均有运行证据与用户解释确认。
-- **下一 Module**：M1.7 Agent Loop + State / Lifecycle（Week 4）。
-- **状态**：M1.1–M1.6 Completed；M1.7 实现与实测完成（累计 41 条 Evaluation Cases），待用户解释后关闭。
+- **已完成**：M1.1–M1.7；累计 41 条 Evaluation Cases；Day 1–7 均有运行证据与用户解释确认。
+- **下一 Module**：M1.8 Planning + Reflection + Human-in-the-loop（Week 4）。
+- **状态**：M1.7 Completed（2026-09-07）；M1.8 未开始。
 
 ## Completed Milestones
 

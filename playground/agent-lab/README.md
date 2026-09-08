@@ -137,4 +137,4 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 - **验证**：输出 `PASS`（7/7）；l4 max_steps 有限结束；l5 cancelled；l6 checkpoint round-trip；l7 resume 后 add 总执行次数仍为 1；所有 session 资源均 opened=1/closed=1。
 - **已知限制**：checkpoint 只在完整 step 后生成；不覆盖 in-flight tool、真实持久化、并发恢复、外部副作用 exactly-once 或 schema migration。
-- **状态**：实现与实测完成（7/7），待用户解释观察结果后关闭。
+- **状态**：M1.7 闭环完成（2026-09-07）：runner 7/7、恢复零重放、用户解释确认。

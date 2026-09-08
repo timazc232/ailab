@@ -7,21 +7,21 @@
 ## Current Phase
 
 - **Day 0 — 准备阶段（Completed）**
-- **Phase 1 — Day 6 Completed**；下一模块 M1.7 Agent Loop + State / Lifecycle。
+- **Phase 1 — Day 7 In Progress**；当前模块 M1.7 Agent Loop + State / Lifecycle。
 
 ## Current Day
 
-- **Current Day**：Day 6（2026-09-07）
-- **Day 1–5**：Completed。
-- **Day 6**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（34 累计 cases）。
+- **Current Day**：Day 7（2026-09-07，同一 UTC 日期的第二个学习单元）
+- **Day 1–6**：Completed。
+- **Day 7**：In Progress — 实现与实测完成（l1–l7 全部 7/7）；Evaluation 已归档；M1.7 Completed 待用户解释观察结果。
 - **已完成 Module**：M1.1、M1.2、M1.3、M1.4、M1.5、M1.6。
-- **节奏记录**：2026-09-05～06 无学习记录，不补写。
+- **节奏记录**：2026-09-05～06 无学习记录；Day 6/7 均发生于 2026-09-07，分文件记录。
 
 ## Current Module
 
 - **已完成**：M1.1–M1.6；累计 34 条 Evaluation Cases；Day 1–6 均有运行证据与用户解释确认。
 - **下一 Module**：M1.7 Agent Loop + State / Lifecycle（Week 4）。
-- **状态**：M1.6 Completed（2026-09-07）；M1.7 未开始。
+- **状态**：M1.1–M1.6 Completed；M1.7 实现与实测完成（累计 41 条 Evaluation Cases），待用户解释后关闭。
 
 ## Completed Milestones
 
@@ -141,7 +141,7 @@
 7. 已完成（2026-09-03）：用户复述确认（retry 仍走同一 schema；extra field 拒绝以保持违规可见），M1.4 标记 Completed。
 8. 已完成（2026-09-04）：用户复述确认（unknown vs denied、invocation 零执行、tool result 回填与 tool_call_id 映射），M1.5 标记 Completed。
 9. 已完成（2026-09-07）：用户复述确认（重复注册、授权顺序、零执行 vs 已执行异常、inventory 与强制授权边界），M1.6 标记 Completed。
-10. 下一步：M1.7 Agent Loop + State / Lifecycle（显式状态、终止原因、中断/恢复与资源清理）。
+10. 进行中（2026-09-07）：M1.7 实现、运行、观察完成（7/7），Evaluation 已归档；待用户解释 l4/l5/l6/l7 后关闭。
 
 ## Progress Update Rules
 

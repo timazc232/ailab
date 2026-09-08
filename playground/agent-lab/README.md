@@ -114,3 +114,27 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 - **验证**：输出 `PASS`（7/7）；r3/r4/r5 零执行；r6 实际进入函数后异常；r2 原工具未被重复注册覆盖；Evaluation 追加 m1.6-r1..r7。
 - **已知限制**：无 timeout / async / 动态卸载 / 并发注册；schema 仅 number/string + required + 无额外字段。
 - **状态**：M1.6 闭环完成（2026-09-07）：runner 7/7、用户解释确认。
+
+### m1-7-agent-loop — Day 7 / M1.7 Agent Loop + State / Lifecycle
+
+- **目标**：连接 model decision → Registry dispatch → tool observation → next decision；所有路径显式终止、可暂停/恢复并清理资源。
+- **契约与计划**：[90-days/daily/day-07-agent-loop-state-lifecycle-plan.md](../../90-days/daily/day-07-agent-loop-state-lifecycle-plan.md)。
+- **状态转换**：
+
+  ```text
+  created → running ─┬→ completed
+                     ├→ failed
+                     ├→ cancelled
+                     └→ paused ──resume──→ running
+  ```
+
+- **运行**：
+
+  ```bash
+  cd m1-7-agent-loop
+  python3 run_loop_scenarios.py   # 跑 l1–l7，仅 scripted model
+  ```
+
+- **验证**：输出 `PASS`（7/7）；l4 max_steps 有限结束；l5 cancelled；l6 checkpoint round-trip；l7 resume 后 add 总执行次数仍为 1；所有 session 资源均 opened=1/closed=1。
+- **已知限制**：checkpoint 只在完整 step 后生成；不覆盖 in-flight tool、真实持久化、并发恢复、外部副作用 exactly-once 或 schema migration。
+- **状态**：实现与实测完成（7/7），待用户解释观察结果后关闭。

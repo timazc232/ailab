@@ -2,18 +2,18 @@
 
 > 本文件只记录实际发生的学习、验证证据、未解决问题和下一步；计划内容以 [`ROADMAP.md`](ROADMAP.md) 为准。
 
-- **最后更新**：2026-09-07
+- **最后更新**：2026-09-08
 
 ## Current Phase
 
 - **Day 0 — 准备阶段（Completed）**
-- **Phase 1 — Day 7 Completed**；下一模块 M1.8 Planning + Reflection + Human-in-the-loop。
+- **Phase 1 — Day 8 In Progress**；当前模块 M1.8 Planning + Reflection + Human-in-the-loop。
 
 ## Current Day
 
-- **Current Day**：Day 7（2026-09-07，同一 UTC 日期的第二个学习单元）
-- **Day 1–6**：Completed。
-- **Day 7**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（41 累计 cases）。
+- **Current Day**：Day 8（2026-09-08）
+- **Day 1–7**：Completed。
+- **Day 8**：In Progress — 实现与实测完成（p1–p5b 全部 6/6，回归不变）；Evaluation 已归档；M1.8 Completed 待用户解释观察结果。
 - **已完成 Module**：M1.1、M1.2、M1.3、M1.4、M1.5、M1.6、M1.7。
 - **节奏记录**：2026-09-05～06 无学习记录；Day 6/7 均发生于 2026-09-07，分文件记录。
 
@@ -21,7 +21,7 @@
 
 - **已完成**：M1.1–M1.7；累计 41 条 Evaluation Cases；Day 1–7 均有运行证据与用户解释确认。
 - **下一 Module**：M1.8 Planning + Reflection + Human-in-the-loop（Week 4）。
-- **状态**：M1.7 Completed（2026-09-07）；M1.8 未开始。
+- **状态**：M1.7 Completed（2026-09-07）；M1.8 实现与实测完成（累计 47 条 Evaluation Cases），待用户解释后关闭。
 
 ## Completed Milestones
 
@@ -151,6 +151,7 @@
 9. 已完成（2026-09-07）：用户复述确认（重复注册、授权顺序、零执行 vs 已执行异常、inventory 与强制授权边界），M1.6 标记 Completed。
 10. 已完成（2026-09-07）：用户复述确认（max_steps 语义、副作用不可自动回滚、checkpoint 四要素、恢复零重放），M1.7 标记 Completed。
 11. 下一步：M1.8 Planning + Reflection + Human-in-the-loop（reactive vs plan-first、受限 Reflection、副作用前人工审批）。
+12. 进行中（2026-09-08）：M1.8 实现、运行、观察完成（6/6 + 回归通过），Evaluation 已归档；待用户解释 p3/p4/p5 后关闭。
 
 ## Progress Update Rules
 

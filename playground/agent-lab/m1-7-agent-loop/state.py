@@ -9,7 +9,7 @@ from dataclasses import asdict, dataclass, field
 VALID_STATUSES = frozenset({"created", "running", "completed", "failed", "cancelled", "paused"})
 ALLOWED_TRANSITIONS = {
     "created": frozenset({"running"}),
-    "paused": frozenset({"running"}),
+    "paused": frozenset({"running", "cancelled"}),
     "running": frozenset({"completed", "failed", "cancelled", "paused"}),
     "completed": frozenset(),
     "failed": frozenset(),

@@ -138,3 +138,18 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 - **验证**：输出 `PASS`（7/7）；l4 max_steps 有限结束；l5 cancelled；l6 checkpoint round-trip；l7 resume 后 add 总执行次数仍为 1；所有 session 资源均 opened=1/closed=1。
 - **已知限制**：checkpoint 只在完整 step 后生成；不覆盖 in-flight tool、真实持久化、并发恢复、外部副作用 exactly-once 或 schema migration。
 - **状态**：M1.7 闭环完成（2026-09-07）：runner 7/7、恢复零重放、用户解释确认。
+
+### m1-8-control-strategies — Day 8 / M1.8 Planning + Reflection + Human-in-the-loop
+
+- **目标**：同一 scripted task 上对比 reactive / plan-first / reflection / approval 四种控制策略，量化 Model Calls 与安全边界。
+- **契约与计划**：[90-days/daily/day-08-control-strategies-plan.md](../../90-days/daily/day-08-control-strategies-plan.md)。
+- **运行**：
+
+  ```bash
+  cd m1-8-control-strategies
+  python3 run_strategy_scenarios.py   # 跑 p1–p5b，仅本地 scripted
+  ```
+
+- **验证**：输出 `PASS`（6/6）；Reflection 恰好 1 次且有上限；审批前副作用工具零执行；M1.6/M1.7 回归不变。
+- **已知限制**：checker 为确定性 stub，真实质量收益需真实模型评测；multi-agent 明确不做。
+- **状态**：实现与实测完成（6/7 计划场景，p5 拆为批准/拒绝两条），待用户解释观察结果后关闭。

@@ -7,14 +7,14 @@
 ## Current Phase
 
 - **Day 0 — 准备阶段（Completed）**
-- **Phase 1 — Day 7 In Progress**；当前模块 M1.7 Agent Loop + State / Lifecycle。
+- **Phase 1 — Day 7 Completed**；下一模块 M1.8 Planning + Reflection + Human-in-the-loop。
 
 ## Current Day
 
 - **Current Day**：Day 7（2026-09-07，同一 UTC 日期的第二个学习单元）
 - **Day 1–6**：Completed。
-- **Day 7**：In Progress — 实现与实测完成（l1–l7 全部 7/7）；Evaluation 已归档；M1.7 Completed 待用户解释观察结果。
-- **已完成 Module**：M1.1、M1.2、M1.3、M1.4、M1.5、M1.6。
+- **Day 7**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（41 累计 cases）。
+- **已完成 Module**：M1.1、M1.2、M1.3、M1.4、M1.5、M1.6、M1.7。
 - **节奏记录**：2026-09-05～06 无学习记录；Day 6/7 均发生于 2026-09-07，分文件记录。
 
 ## Current Module
@@ -76,10 +76,17 @@
 - 用户解释确认：duplicate name 不可自动替换；authorization 先于 validation；execution failure 必须已进入函数；inventory 不是授权凭证。
 - 已知限制：无 timeout / async / 动态卸载 / 并发注册；当前无显式 replace/unregister 生命周期；schema 仅 number/string + required + 无额外字段。
 
+### Day 7 Completed（2026-09-07）
+
+- [x] M1.7 Agent Loop + State / Lifecycle 第一个最小闭环。
+- 证据：`playground/agent-lab/m1-7-agent-loop/`；runner l1–l7 7/7；所有路径有 termination reason；资源均 opened=1/closed=1；resume 不重放 add；累计 Evaluation 41 cases。
+- 用户解释确认：max_steps 是预算未完成而非故障；副作用不可自动回滚；checkpoint 四要素作用；恢复零重放证明。
+- 已知限制：仅在完整 step 后 checkpoint；不覆盖 in-flight tool、外部副作用 exactly-once、持久化存储、并发恢复与 schema migration。
+
 ## Active Task
 
-- 本次任务：Day 6 / M1.6 Tool Registry / Dispatch 最小闭环。
-- 当前执行状态：Completed；仅本地 fixtures 与纯函数；未调用真实模型/API；代码与证据已推送 GitHub。
+- 本次任务：Day 7 / M1.7 Agent Loop + State / Lifecycle 最小闭环。
+- 当前执行状态：Completed；仅 scripted model 与本地 fixtures；未调用真实模型/API；代码与证据已推送 GitHub。
 
 ## Validation Evidence
 
@@ -95,6 +102,7 @@
 - 2026-08-31：`python3 run_scenarios.py` → `PASS`，21/21 观察 outcome 一致且命中 §10.2 预测（`observations.jsonl`）。
 - 2026-09-04：`python3 run_tool_scenarios.py` → `PASS: 5 cases`；t2/t3/t4 `calls_executed=0`；累计 Evaluation 27 cases。
 - 2026-09-07：`python3 run_registry_scenarios.py` → `PASS: 7 cases`；r3/r4/r5 零执行；r6 执行 1 次后异常；累计 Evaluation 34 cases。
+- 2026-09-07：`python3 run_loop_scenarios.py` → `PASS: 7 cases`；l6 checkpoint round-trip；l7 恢复零重放；累计 Evaluation 41 cases。
 
 ## Unresolved Questions
 
@@ -141,7 +149,8 @@
 7. 已完成（2026-09-03）：用户复述确认（retry 仍走同一 schema；extra field 拒绝以保持违规可见），M1.4 标记 Completed。
 8. 已完成（2026-09-04）：用户复述确认（unknown vs denied、invocation 零执行、tool result 回填与 tool_call_id 映射），M1.5 标记 Completed。
 9. 已完成（2026-09-07）：用户复述确认（重复注册、授权顺序、零执行 vs 已执行异常、inventory 与强制授权边界），M1.6 标记 Completed。
-10. 进行中（2026-09-07）：M1.7 实现、运行、观察完成（7/7），Evaluation 已归档；待用户解释 l4/l5/l6/l7 后关闭。
+10. 已完成（2026-09-07）：用户复述确认（max_steps 语义、副作用不可自动回滚、checkpoint 四要素、恢复零重放），M1.7 标记 Completed。
+11. 下一步：M1.8 Planning + Reflection + Human-in-the-loop（reactive vs plan-first、受限 Reflection、副作用前人工审批）。
 
 ## Progress Update Rules
 

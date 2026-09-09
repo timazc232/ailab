@@ -7,7 +7,8 @@
 ## Current Phase
 
 - **Day 0 — 准备阶段（Completed）**
-- **Phase 1 九个 Module 全部 Completed（2026-09-09）**；下一步：Day 30 Checkpoint（复盘 + agent-lab Phase 1 baseline 汇总）→ 进入 Phase 2 前置确认。
+- **Phase 1 九个 Module 全部 Completed；Day 30 Checkpoint 通过（2026-09-09），Phase 1 完成**。
+- 下一步：Phase 2（OpenOps）前置确认四问 → 开始 Phase 2。
 
 ## Current Day
 
@@ -177,7 +178,8 @@
 12. 已完成（2026-09-08）：用户复述确认（策略成本、Reflection 上限、审批拦截时机与 metadata 依据、双层拦截互补），M1.8 标记 Completed。
 13. 下一步：M1.9 Retry / Timeout / Error Recovery + Basic Tracing（transient vs permanent、deadline、backoff、幂等性与 trace schema；Day 30 Checkpoint 前最后一个 Module）。
 14. 已完成（2026-09-09）：用户复述确认（重试计数、deadline 检查时机、transient 四道门、trace 消歧），M1.9 标记 Completed；Phase 1 全部九个 Module 完成。
-15. 下一步：Day 30 Checkpoint——复盘 Phase 1 全部 Module、合并 Week 1/2 顺延的复盘、汇总 agent-lab baseline；之后进入 Phase 2（OpenOps）前置确认。
+15. 已完成（2026-09-09）：Day 30 Checkpoint 通过——学习者综合复述验证（含纠偏），复盘文档见 `phase-1-retrospective.md`；Phase 1 标记完成。
+16. 下一步：Phase 2（OpenOps）前置确认：① 首批用户；② Docker Test Lab 技术栈优先级（Linux 进程 / Nginx / MySQL / PostgreSQL）；③ 许可证与发布边界；④ Phase 3 前确认模型预算。确认后进入 Phase 2。
 
 ## Progress Update Rules
 

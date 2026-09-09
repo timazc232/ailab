@@ -7,13 +7,14 @@
 ## Current Phase
 
 - **Day 0 — 准备阶段（Completed）**
-- **Phase 1 — Day 9 In Progress**；当前模块 M1.9 Retry / Timeout / Error Recovery + Basic Tracing（Phase 1 最后一个 Module）。
+- **Phase 1 九个 Module 全部 Completed（2026-09-09）**；下一步：Day 30 Checkpoint（复盘 + agent-lab Phase 1 baseline 汇总）→ 进入 Phase 2 前置确认。
 
 ## Current Day
 
 - **Current Day**：Day 9（2026-09-09）
 - **Day 1–8**：Completed。
-- **Day 9**：In Progress — 实现与实测完成（n1–n8 全部 8/8）；Evaluation 已归档；M1.9 Completed 待用户解释观察结果。
+- **Day 9**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（55 累计 cases）。M1.9 是 Phase 1 最后一个 Module。
+- **已完成 Module**：M1.1–M1.9（全部）。
 - **已完成 Module**：M1.1–M1.8。
 - **节奏记录**：2026-09-05～06 无学习记录；Day 6/7 均发生于 2026-09-07，分文件记录。
 
@@ -21,7 +22,7 @@
 
 - **已完成**：M1.1–M1.8；累计 47 条 Evaluation Cases；Day 1–8 均有运行证据与用户解释确认。
 - **下一 Module**：M1.9 Retry / Timeout / Error Recovery + Basic Tracing（Week 4）。
-- **状态**：M1.8 Completed（2026-09-08）；M1.9 实现与实测完成（累计 55 条 Evaluation Cases），待用户解释后关闭。
+- **状态**：M1.9 Completed（2026-09-09）；Phase 1（M1.1–M1.9）全部完成；待做 Day 30 Checkpoint 复盘。
 
 ## Completed Milestones
 
@@ -90,10 +91,23 @@
 - 用户解释确认：策略成本对比；Reflection 上限防失控；审批依据 ToolSpec metadata 在 dispatch 前拦截；Reflection 管生成层质量、approval 管执行层不可逆风险。
 - 已知限制：checker 为确定性 stub；真实质量收益需真实模型评测；multi-agent 明确非目标；approval 超时未实现。
 
+### Day 9 Completed（2026-09-09）
+
+- [x] M1.9 Retry / Timeout / Error Recovery + Basic Tracing 第一个最小闭环；Phase 1 全部九个 Module 完成。
+- 证据：`playground/agent-lab/m1-9-reliability/`；runner n1–n8 8/8；累计 Evaluation 55 cases。
+- 用户解释确认：原始尝试 vs 重试计数；deadline 检查必须在发起新尝试前；transient 只是重试的必要条件（次数/预算/幂等/业务策略四道门）；attempt 字段对 trace 消歧的必要性。
+- 已知限制：虚拟时钟；backoff 无 jitter；幂等键未实现；trace 未与 M1.7 loop 集成。
+
+### agent-lab Phase 1 baseline（2026-09-09）
+
+- 代码：9 个 Module 目录（m1-1 … m1-9），Python 标准库、无第三方依赖、无真实模型调用。
+- 评测：`eval_cases.jsonl` 累计 55 条，覆盖 API 边界、context、streaming、schema、tool、registry、loop/state、控制策略、可靠性。
+- 复盘：待 Day 30 Checkpoint 统一进行（含 Week 1/2 顺延的复盘合并）。
+
 ## Active Task
 
-- 本次任务：Day 8 / M1.8 Planning + Reflection + Human-in-the-loop 最小闭环。
-- 当前执行状态：Completed；仅 scripted model 与本地 fixtures；未调用真实模型/API；代码与证据已推送 GitHub。
+- 本次任务：Day 9 / M1.9 Retry / Timeout / Error Recovery + Basic Tracing 最小闭环。
+- 当前执行状态：Completed；仅虚拟时钟与本地 fixtures；未调用真实模型/API；代码与证据已推送 GitHub。
 
 ## Validation Evidence
 
@@ -111,6 +125,7 @@
 - 2026-09-07：`python3 run_registry_scenarios.py` → `PASS: 7 cases`；r3/r4/r5 零执行；r6 执行 1 次后异常；累计 Evaluation 34 cases。
 - 2026-09-07：`python3 run_loop_scenarios.py` → `PASS: 7 cases`；l6 checkpoint round-trip；l7 恢复零重放；累计 Evaluation 41 cases。
 - 2026-09-08：`python3 run_strategy_scenarios.py` → `PASS: 6 cases`（含回归 m1-7 7/7、m1-6 7/7）；Reflection 封顶；审批前副作用零执行；累计 Evaluation 47 cases。
+- 2026-09-09：`python3 run_reliability_scenarios.py` → `PASS: 8 cases`；deadline/幂等门控/fallback/trace 重建全部命中；累计 Evaluation 55 cases。
 
 ## Unresolved Questions
 
@@ -144,7 +159,7 @@
 
 ### 已有实验结论
 
-- M1.1–M1.8 已完成最小实验闭环；机制结论、失败边界与已知限制分别记录在 Day 1–8 daily log 与 Completed Milestones。
+- M1.1–M1.9 已完成最小实验闭环；机制结论、失败边界与已知限制分别记录在 Day 1–9 daily log 与 Completed Milestones。
 
 ## Next Step
 
@@ -161,7 +176,8 @@
 11. 下一步：M1.8 Planning + Reflection + Human-in-the-loop（reactive vs plan-first、受限 Reflection、副作用前人工审批）。
 12. 已完成（2026-09-08）：用户复述确认（策略成本、Reflection 上限、审批拦截时机与 metadata 依据、双层拦截互补），M1.8 标记 Completed。
 13. 下一步：M1.9 Retry / Timeout / Error Recovery + Basic Tracing（transient vs permanent、deadline、backoff、幂等性与 trace schema；Day 30 Checkpoint 前最后一个 Module）。
-14. 进行中（2026-09-09）：M1.9 实现、运行、观察完成（8/8），Evaluation 已归档；待用户解释 n2/n5/n6/n8 后关闭。
+14. 已完成（2026-09-09）：用户复述确认（重试计数、deadline 检查时机、transient 四道门、trace 消歧），M1.9 标记 Completed；Phase 1 全部九个 Module 完成。
+15. 下一步：Day 30 Checkpoint——复盘 Phase 1 全部 Module、合并 Week 1/2 顺延的复盘、汇总 agent-lab baseline；之后进入 Phase 2（OpenOps）前置确认。
 
 ## Progress Update Rules
 

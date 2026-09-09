@@ -167,4 +167,4 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 
 - **验证**：输出 `PASS`（8/8）；n2 恰好 3 次尝试；n5 deadline 后零额外尝试；n6 非幂等不重试；n8 trace 重建一致；Evaluation 追加 m1.9-n1..n8（累计 55）。
 - **已知限制**：虚拟时钟未覆盖真实时延；backoff 无 jitter；幂等键未实现；trace 未与 M1.7 loop 集成。
-- **状态**：实现与实测完成（8/8），待用户解释观察结果后关闭。
+- **状态**：M1.9 闭环完成（2026-09-09）：runner 8/8、用户解释确认。Phase 1（M1.1–M1.9）全部完成，待 Day 30 Checkpoint 复盘。

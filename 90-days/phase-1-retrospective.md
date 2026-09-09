@@ -67,9 +67,9 @@ HTTP 接入 → 请求解析校验 → 构造 messages/context（M1.2）
 - **M1.9（首选）**：故障诊断必须保留完整证据链、区分暂时/永久故障、控制重试与修复动作、避免重复副作用。
 - 补充：M1.6 权限边界 + M1.8 审批门在运维环境同等关键——高风险动作（重启/删除服务）强制审批，且只作用于隔离 Docker Test Lab（AGENTS.md 硬约束）。
 
-## 7. Phase 2 前置确认（待用户决定，进入 OpenOps 前回答）
+## 7. Phase 2 前置确认（已于 2026-09-09 确认）
 
-1. OpenOps 的首批用户是谁（自己 / 小团队 / 公开发布）？
-2. 重点环境：Docker Test Lab 的技术栈优先级（Linux 进程 / Nginx / MySQL / PostgreSQL）？
-3. 开源许可证与发布边界？
-4. Multi-model Evaluation 的 provider/预算上限（Phase 3 前确认即可）？
+1. **首批用户**：作者本人。目标环境：当前服务器上搭建隔离 Docker Test Lab（参照真实拓扑复刻，宿主机服务不是注入对象）；远端 grok bot 机器作为后期扩展目标（需先提供其服务清单）。
+2. **技术栈优先级**：① Linux 进程 / Docker / Logs（M2.3 基础层）→ ② Nginx（Web 层）→ ③ PostgreSQL（DB 层，备选 MySQL）。
+3. **许可证**：Apache-2.0（专利授权 + 运维工具主流选择）。
+4. **模型**：DeepSeek 官方 API，最新 `deepseek-chat`；Phase 2 全程 scripted 零真实调用；Phase 3 接入时另定预算上限与 per-run cost 记录。

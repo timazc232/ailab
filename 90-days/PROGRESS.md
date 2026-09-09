@@ -139,8 +139,10 @@
 
 ### 可延后到对应 Phase 前确认
 
-1. OpenOps 的首批用户、重点环境、开源许可证和发布边界。
-2. Multi-model Evaluation 要比较的 provider/model 与费用上限。
+以下四项已于 2026-09-09 随 Day 30 Checkpoint 确认，记录于 [`phase-1-retrospective.md`](phase-1-retrospective.md) §7：
+
+1. ~~OpenOps 的首批用户、重点环境、开源许可证和发布边界~~ → 首批用户为作者本人；当前服务器作隔离 Docker Test Lab 宿主（参照真实拓扑复刻，不注入宿主机服务）；grok bot 远端机器为后期扩展；技术栈优先级 Linux/Docker/Logs → Nginx → PostgreSQL（备选 MySQL）；许可证 Apache-2.0。
+2. ~~Multi-model Evaluation 要比较的 provider/model 与费用上限~~ → 已定 DeepSeek 最新 `deepseek-chat`；Phase 2 全程 scripted 零真实调用；预算上限 Phase 3 接入时确定。
 3. Memory Hub 的初始持久化方案，以及是否与 OpenOps 做可选集成。
 4. 四类目标岗位的优先顺序，以及英文 README、Resume 与 Demo 的主要受众。
 5. 后两个 15 天 Phase 默认只做最小可验证 baseline / MVP；需确认是否接受该深度与广度取舍。

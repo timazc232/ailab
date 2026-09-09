@@ -2,18 +2,18 @@
 
 > 本文件只记录实际发生的学习、验证证据、未解决问题和下一步；计划内容以 [`ROADMAP.md`](ROADMAP.md) 为准。
 
-- **最后更新**：2026-09-08
+- **最后更新**：2026-09-09
 
 ## Current Phase
 
 - **Day 0 — 准备阶段（Completed）**
-- **Phase 1 — Day 8 Completed**；下一模块 M1.9 Retry / Timeout / Error Recovery + Basic Tracing。
+- **Phase 1 — Day 9 In Progress**；当前模块 M1.9 Retry / Timeout / Error Recovery + Basic Tracing（Phase 1 最后一个 Module）。
 
 ## Current Day
 
-- **Current Day**：Day 8（2026-09-08）
-- **Day 1–7**：Completed。
-- **Day 8**：Completed — 概念 → 假设 → 实现 → 运行 → 观察 → 用户解释 → Evaluation 归档（47 累计 cases）。
+- **Current Day**：Day 9（2026-09-09）
+- **Day 1–8**：Completed。
+- **Day 9**：In Progress — 实现与实测完成（n1–n8 全部 8/8）；Evaluation 已归档；M1.9 Completed 待用户解释观察结果。
 - **已完成 Module**：M1.1–M1.8。
 - **节奏记录**：2026-09-05～06 无学习记录；Day 6/7 均发生于 2026-09-07，分文件记录。
 
@@ -21,7 +21,7 @@
 
 - **已完成**：M1.1–M1.8；累计 47 条 Evaluation Cases；Day 1–8 均有运行证据与用户解释确认。
 - **下一 Module**：M1.9 Retry / Timeout / Error Recovery + Basic Tracing（Week 4）。
-- **状态**：M1.8 Completed（2026-09-08）；M1.9 未开始。
+- **状态**：M1.8 Completed（2026-09-08）；M1.9 实现与实测完成（累计 55 条 Evaluation Cases），待用户解释后关闭。
 
 ## Completed Milestones
 
@@ -161,6 +161,7 @@
 11. 下一步：M1.8 Planning + Reflection + Human-in-the-loop（reactive vs plan-first、受限 Reflection、副作用前人工审批）。
 12. 已完成（2026-09-08）：用户复述确认（策略成本、Reflection 上限、审批拦截时机与 metadata 依据、双层拦截互补），M1.8 标记 Completed。
 13. 下一步：M1.9 Retry / Timeout / Error Recovery + Basic Tracing（transient vs permanent、deadline、backoff、幂等性与 trace schema；Day 30 Checkpoint 前最后一个 Module）。
+14. 进行中（2026-09-09）：M1.9 实现、运行、观察完成（8/8），Evaluation 已归档；待用户解释 n2/n5/n6/n8 后关闭。
 
 ## Progress Update Rules
 

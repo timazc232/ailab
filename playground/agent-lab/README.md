@@ -153,3 +153,18 @@ python3 run_scenarios.py              # 进程内自动启动 mock，7 场景 ×
 - **验证**：输出 `PASS`（6/6）；Reflection 恰好 1 次且有上限；审批前副作用工具零执行；M1.6/M1.7 回归不变。
 - **已知限制**：checker 为确定性 stub，真实质量收益需真实模型评测；multi-agent 明确不做。
 - **状态**：M1.8 闭环完成（2026-09-08）：runner 6/6、回归通过、用户解释确认。
+
+### m1-9-reliability — Day 9 / M1.9 Retry / Timeout / Error Recovery + Basic Tracing
+
+- **目标**：分类重试（transient vs permanent）、deadline、指数 backoff、幂等性门控、显式 fallback 与最小 trace。
+- **契约与计划**：[90-days/daily/day-09-reliability-tracing-plan.md](../../90-days/daily/day-09-reliability-tracing-plan.md)。
+- **运行**：
+
+  ```bash
+  cd m1-9-reliability
+  python3 run_reliability_scenarios.py   # 跑 n1–n8，虚拟时钟，不真实 sleep
+  ```
+
+- **验证**：输出 `PASS`（8/8）；n2 恰好 3 次尝试；n5 deadline 后零额外尝试；n6 非幂等不重试；n8 trace 重建一致；Evaluation 追加 m1.9-n1..n8（累计 55）。
+- **已知限制**：虚拟时钟未覆盖真实时延；backoff 无 jitter；幂等键未实现；trace 未与 M1.7 loop 集成。
+- **状态**：实现与实测完成（8/8），待用户解释观察结果后关闭。
